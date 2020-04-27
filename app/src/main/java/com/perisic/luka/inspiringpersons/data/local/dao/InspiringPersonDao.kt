@@ -1,5 +1,6 @@
 package com.perisic.luka.inspiringpersons.data.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -13,6 +14,9 @@ interface InspiringPersonDao {
 
     @Query("SELECT * FROM inspiring_persons")
     fun fetchPersons(): DataSource.Factory<Int, InspiringPerson>
+
+    @Query("SELECT * FROM inspiring_persons WHERE id LIKE :id LIMIT 1")
+    fun fetchSingle(id: Int): LiveData<InspiringPerson>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(data: InspiringPerson)

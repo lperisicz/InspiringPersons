@@ -6,12 +6,16 @@ import androidx.lifecycle.ViewModel
 import com.perisic.luka.inspiringpersons.data.repo.PersonRepository
 
 class PersonListViewModel(
-    personRepository: PersonRepository
+    private val personRepository: PersonRepository
 ) : ViewModel() {
-
     private val filterData = MutableLiveData(null)
+
     val personsResponse = switchMap(filterData) {
         personRepository.fetchPersons()
+    }
+
+    fun deletePerson(personId: Int) {
+        personRepository.deletePerson(personId)
     }
 
 }

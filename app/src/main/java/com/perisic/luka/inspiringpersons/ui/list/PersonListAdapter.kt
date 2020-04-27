@@ -9,7 +9,9 @@ import com.perisic.luka.inspiringpersons.util.BasePagedRecyclerAdapter
 import com.perisic.luka.inspiringpersons.util.formatTimeLong
 import kotlin.random.Random
 
-class PersonListAdapter : BasePagedRecyclerAdapter<InspiringPerson, ItemPersonBinding>(
+class PersonListAdapter(
+    onLongClick: (Int) -> Unit
+) : BasePagedRecyclerAdapter<InspiringPerson, ItemPersonBinding>(
     inflater = ItemPersonBinding::inflate,
     diffCallback = object : DiffUtil.ItemCallback<InspiringPerson>() {
 
@@ -21,7 +23,12 @@ class PersonListAdapter : BasePagedRecyclerAdapter<InspiringPerson, ItemPersonBi
             oldItem: InspiringPerson,
             newItem: InspiringPerson
         ): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.id == newItem.id &&
+                    oldItem.name == newItem.name &&
+                    oldItem.dateOfBirth == newItem.dateOfBirth &&
+                    oldItem.description == newItem.description &&
+                    oldItem.image == newItem.image
+
         }
     },
     binder = {
@@ -33,6 +40,10 @@ class PersonListAdapter : BasePagedRecyclerAdapter<InspiringPerson, ItemPersonBi
         root.setOnClickListener { _ ->
             Snackbar.make(root, it.quotes[Random.nextInt(0, it.quotes.size)], Snackbar.LENGTH_SHORT)
                 .show()
+        }
+        root.setOnLongClickListener { _ ->
+            onLongClick(it.id)
+            true
         }
     }
 )

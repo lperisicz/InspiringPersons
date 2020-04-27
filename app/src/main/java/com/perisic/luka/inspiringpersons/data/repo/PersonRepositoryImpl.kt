@@ -21,11 +21,11 @@ internal class PersonRepositoryImpl(
     }
 
     override fun deletePerson(personId: Int) {
-        TODO("Not yet implemented")
+        personDao.delete(personId)
     }
 
     override fun fetchPerson(personId: Int): LiveData<InspiringPerson> {
-        TODO("Not yet implemented")
+        return personDao.fetchSingle(personId)
     }
 
     override fun createPerson(person: InspiringPerson) {
