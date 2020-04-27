@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">InspiringPersons</string>
+    <string name="name">Name</string>
+    <string name="image">Image url</string>
+    <string name="date">Date</string>
+    <string name="description">Description</string>
+    <string name="quotes">Quotes</string>
+</resources>
